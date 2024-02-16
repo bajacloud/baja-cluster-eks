@@ -51,8 +51,8 @@ resource "aws_eks_node_group" "my_node_group" {
   node_group_name = "ng-1"
   node_role_arn   = aws_iam_role.node.arn
   subnet_ids      = aws_subnet.private_subnet[*].id
-  instance_types  = ["t3.medium"]  # Set instance type to t3.large
-  capacity_type   = [SPOT]
+  instance_types  = ["t2.micro"]  # Set instance type to t3.large
+  capacity_type   = "SPOT"
 
   scaling_config {
     desired_size = 2
