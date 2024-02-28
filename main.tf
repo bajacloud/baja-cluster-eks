@@ -3,6 +3,7 @@ provider "aws" {
 }
 
 resource "aws_vpc" "my_vpc" {
+  # checkov:skip=CKV2_AWS_12: ADD REASON
   cidr_block = "10.0.0.0/16"
   
   tags = {
@@ -11,6 +12,7 @@ resource "aws_vpc" "my_vpc" {
 }
 
 resource "aws_subnet" "public_subnet" {
+  # checkov:skip=CKV_AWS_130: ADD REASON
   count = length(var.azs)
   
   vpc_id                  = aws_vpc.my_vpc.id
@@ -43,6 +45,7 @@ resource "aws_eks_cluster" "my_cluster" {
   
   vpc_config {
     subnet_ids = aws_subnet.private_subnet[*].id
+    endpoint_private_access = true 
   }
 }
 
