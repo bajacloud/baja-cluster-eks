@@ -14,7 +14,7 @@ resource "aws_subnet" "public_subnet" {
   count = length(var.azs)
   
   vpc_id                  = aws_vpc.my_vpc.id
-  cidr_block              = cidrsubnet(aws_vpc.my_vpc.cidr_block, 8, count.index)
+  cidr_block              = cidrsubnet(aws_vpc.my_vpc.cidr_block, 8, count.index * 2)
   availability_zone       = var.azs[count.index]
   map_public_ip_on_launch = true
   
@@ -27,7 +27,7 @@ resource "aws_subnet" "private_subnet" {
   count = length(var.azs)
   
   vpc_id                  = aws_vpc.my_vpc.id
-  cidr_block              = cidrsubnet(aws_vpc.my_vpc.cidr_block, 8, count.index + 1)
+  cidr_block              = cidrsubnet(aws_vpc.my_vpc.cidr_block, 8, count.index * 2 + 1)
   availability_zone       = var.azs[count.index]
   map_public_ip_on_launch = false
   
